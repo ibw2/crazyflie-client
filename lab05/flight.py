@@ -166,9 +166,11 @@ if __name__ == '__main__':
 
     #############
     # OPTIONAL - insert more move commands here...
-    # client.move(0.0, 0.0, 0.30, 0.0, 10.0)
-
-    #
+    client.move(0.0, 0.0, 1.0, 0.0, 1.0)    #
+    client.move(0.0, 0.0, 1.5, 0.0, 1.0)
+    client.move(0.0, 0.0, 2.0, 0.0, 1.0)
+    client.move(0.0, 0.0, 1.5, 0.0, 1.0)
+    client.move(0.0, 0.0, 1.0, 0.0, 1.0)
     #############
 
     # Go back to hover (with zero yaw) and prepare to land
@@ -182,4 +184,4 @@ if __name__ == '__main__':
     client.disconnect()
 
     # Write data from flight
-    client.write_data('hardware_3_data.json')
+    client.write_data('hardware_4_data.json')
