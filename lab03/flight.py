@@ -8,7 +8,7 @@ from cflib.crazyflie.log import LogConfig
 
 # Specify the uri of the drone to which we want to connect (if your radio
 # channel is X, the uri should be 'radio://0/X/2M/E7E7E7E7E7')
-uri = 'radio://0/0/2M/E7E7E7E7E7'
+uri = 'radio://0/22/2M/E7E7E7E7E7'
 
 # Specify the variables we want to log (all at 100 Hz)
 variables = [
@@ -17,26 +17,26 @@ variables = [
     'gyro.x',
     'gyro.y',
     'gyro.z',
-    'acc.x',
-    'acc.y',
-    'acc.z',
+    # 'acc.x',
+    # 'acc.y',
+    # 'acc.z',
     # - Flow deck
-    'motion.deltaX',
-    'motion.deltaY',
-    'range.zrange',
-    # State estimates
-    'stateEstimate.x',
-    'stateEstimate.y',
-    'stateEstimate.z',
-    'stateEstimate.roll',
-    'stateEstimate.pitch',
-    'stateEstimate.yaw',
-    'stateEstimate.vx',
-    'stateEstimate.vy',
-    'stateEstimate.vz',
-    # Variables from the AE483 controller code (examples)
-    'ae483log.num_tof',
-    'ae483log.num_flow',
+    # 'motion.deltaX',
+    # 'motion.deltaY',
+    # 'range.zrange',
+    # # State estimates
+    # 'stateEstimate.x',
+    # 'stateEstimate.y',
+    # 'stateEstimate.z',
+    # 'stateEstimate.roll',
+    # 'stateEstimate.pitch',
+    # 'stateEstimate.yaw',
+    # 'stateEstimate.vx',
+    # 'stateEstimate.vy',
+    # 'stateEstimate.vz',
+    # # Variables from the AE483 controller code (examples)
+    # 'ae483log.num_tof',
+    # 'ae483log.num_flow',
 ]
 
 
@@ -155,26 +155,28 @@ if __name__ == '__main__':
     while not client.is_fully_connected:
         time.sleep(0.1)
 
-    # Leave a little time at the start to initialize
-    client.stop(1.0)
+    client.stop(5.0)
 
-    # Take off
-    client.move(0.0, 0.0, 0.3, 2.0)
+    # # Leave a little time at the start to initialize
+    # client.stop(1.0)
 
-    # Fly in a square
-    client.move(0.2, 0.0, 0.3, 2.0)
-    client.move(0.2, 0.2, 0.3, 2.0)
-    client.move(0.0, 0.2, 0.3, 2.0)
-    client.move(0.0, 0.0, 0.3, 2.0)
+    # # Take off
+    # client.move(0.0, 0.0, 0.3, 2.0)
 
-    # Prepare to land
-    client.move(0.0, 0.0, 0.15, 1.0)
+    # # Fly in a square
+    # client.move(0.2, 0.0, 0.3, 2.0)
+    # client.move(0.2, 0.2, 0.3, 2.0)
+    # client.move(0.0, 0.2, 0.3, 2.0)
+    # client.move(0.0, 0.0, 0.3, 2.0)
 
-    # Land
-    client.stop(1.0)
+    # # Prepare to land
+    # client.move(0.0, 0.0, 0.15, 1.0)
+
+    # # Land
+    # client.stop(1.0)
 
     # Disconnect from drone
     client.disconnect()
 
     # Write data from flight
-    client.write_data('logged_data.json')
+    client.write_data('z_data.json')

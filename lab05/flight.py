@@ -8,7 +8,7 @@ from cflib.crazyflie.log import LogConfig
 
 # Specify the uri of the drone to which we want to connect (if your radio
 # channel is X, the uri should be 'radio://0/X/2M/E7E7E7E7E7')
-uri = 'radio://0/0/2M/E7E7E7E7E7'
+uri = 'radio://0/22/2M/E7E7E7E7E7'
 
 # Specify the variables we want to log (all at 100 Hz)
 variables = [
@@ -166,8 +166,7 @@ if __name__ == '__main__':
 
     #############
     # OPTIONAL - insert more move commands here...
-
-
+    # client.move(0.0, 0.0, 0.30, 0.0, 10.0)
 
     #
     #############
@@ -183,4 +182,4 @@ if __name__ == '__main__':
     client.disconnect()
 
     # Write data from flight
-    client.write_data('hardware_data.json')
+    client.write_data('hardware_3_data.json')
