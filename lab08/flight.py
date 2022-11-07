@@ -8,7 +8,7 @@ from cflib.crazyflie.log import LogConfig
 
 # Specify the uri of the drone to which we want to connect (if your radio
 # channel is X, the uri should be 'radio://0/X/2M/E7E7E7E7E7')
-uri = 'radio://0/0/2M/E7E7E7E7E7'
+uri = 'radio://0/22/2M/E7E7E7E7E7'
 
 # Specify the variables we want to log (all at 100 Hz)
 variables = [
@@ -134,7 +134,33 @@ class SimpleClient:
             time.sleep(0.1)
     
     def move_smooth(self, p1, p2, yaw, speed):
-        pass # <-- FIXME (replace this line with your implementation of move_smooth)
+        print(f'Move smoothly from {p1} to {p2} with yaw {yaw} degrees at {speed} meters / second')
+        p1 = np.array(p1)
+        p2 = np.array(p2)
+        
+        # Compute distance from p1 to p2
+        distance_from_p1_to_p2 = np.linalg.norm((p2 - p1)[0])
+        
+        # Compute time it takes to move from p1 to p2 at desired speed
+        time_from_p1_to_p2 = distance_from_p1_to_p2/speed
+        
+        start_time = time.time()
+        while True:
+            current_time = time.time()
+            
+            # Compute what fraction of the distance from p1 to p2 should have
+            # been travelled by the current time
+            s = (current_time - start_time)/time_from_p1_to_p2
+            
+            # Compute where the drone should be at the current time, in the
+            # coordinates of the world frame
+            p = (1 - s)*p1 + s*p2
+            
+            self.cf.commander.send_position_setpoint(p[0], p[1], p[2], yaw)
+            if s >= 1:
+                return
+            else:
+                time.sleep(0.1)
 
     def stop(self, dt):
         print(f'Stop for {dt} seconds')
